@@ -61,43 +61,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Smooth scroll for anchors
-    function easeInOutQuad(t) {
-        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    }
-
-    function easeInOutCubic(t) {
-        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-
-    function smoothScrollTo(targetY, duration = 1200) {
-        const startY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        const distance = targetY - startY;
-        let startTime = null;
-
-        function animation(currentTime) {
-            if (!startTime) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const progress = Math.min(timeElapsed / duration, 1);
-            const easedProgress = easeInOutCubic(progress);
-            window.scrollTo(0, Math.round(startY + distance * easedProgress));
-            if (timeElapsed < duration) {
-                requestAnimationFrame(animation);
-            }
-        }
-
-        requestAnimationFrame(animation);
-    }
-
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                smoothScrollTo(elementPosition, 1200);
+                target.scrollIntoView({ behavior: 'smooth' });
                 history.pushState(null, '', this.getAttribute('href'));
             }
         });
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const icon = themeToggle.querySelector('i');
+    let isDark = localStorage.getItem('theme') === 'dark';
+
+    if (isDark) {
+        document.body.classList.add('dark');
+        icon.setAttribute('data-lucide', 'sun');
+    } else {
+        icon.setAttribute('data-lucide', 'moon');
+    }
+    lucide.createIcons();
+
+    themeToggle.addEventListener('click', () => {
+        isDark = !isDark;
+        document.body.classList.toggle('dark', isDark);
+        icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        lucide.createIcons();
     });
 
     // Navbar scroll effect

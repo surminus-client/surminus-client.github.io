@@ -38,6 +38,31 @@
     --md-sys-shape-full: 100px;
 }
 
+/* Dark Mode */
+.dark {
+    --md-sys-color-primary: #ffb3c1;
+    --md-sys-color-on-primary: #5d1227;
+    --md-sys-color-primary-container: #8b3a4f;
+    --md-sys-color-on-primary-container: #fcd8e3;
+
+    --md-sys-color-secondary: #7dd3ff;
+    --md-sys-color-on-secondary: #003546;
+    --md-sys-color-secondary-container: #005966;
+    --md-sys-color-on-secondary-container: #b3ebff;
+
+    --md-sys-color-surface: #0f0f0f;
+    --md-sys-color-on-surface: #e0e0e0;
+    --md-sys-color-surface-variant: #3a3a3a;
+    --md-sys-color-on-surface-variant: #c0c0c0;
+
+    --md-sys-color-outline: #8a8a8a;
+    --md-sys-color-inverse-surface: #e0e0e0;
+    --md-sys-color-inverse-on-surface: #1a1a1a;
+
+    --md-sys-color-error: #ffb4ab;
+    --md-sys-color-on-error: #690005;
+}
+
 /* Ambient Background */
 .ambient-bg {
     position: fixed;
@@ -443,6 +468,20 @@ nav {
 
 .nav-links a:hover::after {
     width: 100%;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--md-sys-color-on-surface);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    transition: color 0.3s;
+}
+
+.theme-toggle:hover {
+    color: var(--md-sys-color-primary);
 }
 
 /* Hero Section */
