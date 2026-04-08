@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
         lucide.createIcons();
+        updateNavStyle();
     });
 
     // Navbar scroll effect
