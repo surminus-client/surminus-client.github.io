@@ -65,8 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     }
 
-    function smoothScrollTo(targetY, duration = 650) {
-        const startY = window.pageYOffset;
+    function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function smoothScrollTo(targetY, duration = 1200) {
+        const startY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
         const distance = targetY - startY;
         let startTime = null;
 
@@ -74,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!startTime) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
             const progress = Math.min(timeElapsed / duration, 1);
-            const easedProgress = easeInOutQuad(progress);
-            window.scrollTo(0, startY + distance * easedProgress);
+            const easedProgress = easeInOutCubic(progress);
+            window.scrollTo(0, Math.round(startY + distance * easedProgress));
             if (timeElapsed < duration) {
                 requestAnimationFrame(animation);
             }
@@ -90,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
                 const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                smoothScrollTo(elementPosition, 700);
+                smoothScrollTo(elementPosition, 1200);
                 history.pushState(null, '', this.getAttribute('href'));
             }
         });
