@@ -95,19 +95,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Navbar scroll effect
     const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
+    const updateNavStyle = () => {
+        const isDarkMode = document.body.classList.contains('dark');
+        const baseBg = isDarkMode ? 'rgba(10, 10, 10, 0.92)' : 'rgba(250, 250, 250, 0.8)';
+        const scrolledBg = isDarkMode ? 'rgba(10, 10, 10, 0.95)' : 'rgba(250, 250, 250, 0.95)';
+        const borderColor = isDarkMode ? 'rgba(255, 255, 255, 0.08)' : 'rgba(217, 122, 143, 0.15)';
+        const borderColorBase = isDarkMode ? 'rgba(255, 255, 255, 0.08)' : 'rgba(217, 122, 143, 0.1)';
+
         if (window.scrollY > 50) {
             nav.style.height = '70px';
-            nav.style.backgroundColor = 'rgba(250, 250, 250, 0.95)';
+            nav.style.backgroundColor = scrolledBg;
             nav.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
-            nav.style.borderBottomColor = 'rgba(217, 122, 143, 0.15)';
+            nav.style.borderBottomColor = borderColor;
         } else {
             nav.style.height = '80px';
-            nav.style.backgroundColor = 'rgba(250, 250, 250, 0.8)';
+            nav.style.backgroundColor = baseBg;
             nav.style.boxShadow = 'none';
-            nav.style.borderBottomColor = 'rgba(217, 122, 143, 0.1)';
+            nav.style.borderBottomColor = borderColorBase;
         }
-    });
+    };
+
+    window.addEventListener('scroll', updateNavStyle);
+    updateNavStyle();
 
     // Button interaction enhancement
     const buttons = document.querySelectorAll('.m3-button');
