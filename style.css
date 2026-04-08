@@ -190,6 +190,11 @@
     font-family: 'Outfit', sans-serif;
 }
 
+html,
+body {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);

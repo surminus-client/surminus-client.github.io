@@ -61,19 +61,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Smooth scroll for anchors
+    function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    function smoothScrollTo(targetY, duration = 650) {
+        const startY = window.pageYOffset;
+        const distance = targetY - startY;
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (!startTime) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const progress = Math.min(timeElapsed / duration, 1);
+            const easedProgress = easeInOutQuad(progress);
+            window.scrollTo(0, startY + distance * easedProgress);
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            }
+        }
+
+        requestAnimationFrame(animation);
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+                const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                smoothScrollTo(elementPosition, 700);
+                history.pushState(null, '', this.getAttribute('href'));
             }
         });
     });
