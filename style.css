@@ -40,27 +40,27 @@
 
 /* Dark Mode */
 .dark {
-    --md-sys-color-primary: #ffb3c1;
-    --md-sys-color-on-primary: #5d1227;
-    --md-sys-color-primary-container: #8b3a4f;
-    --md-sys-color-on-primary-container: #fcd8e3;
+    --md-sys-color-primary: #ff99c9;
+    --md-sys-color-on-primary: #21101f;
+    --md-sys-color-primary-container: #3f1b34;
+    --md-sys-color-on-primary-container: #ffd4e8;
 
     --md-sys-color-secondary: #7dd3ff;
-    --md-sys-color-on-secondary: #003546;
-    --md-sys-color-secondary-container: #005966;
-    --md-sys-color-on-secondary-container: #b3ebff;
+    --md-sys-color-on-secondary: #002633;
+    --md-sys-color-secondary-container: #004857;
+    --md-sys-color-on-secondary-container: #c9f0ff;
 
-    --md-sys-color-surface: #0f0f0f;
-    --md-sys-color-on-surface: #e0e0e0;
-    --md-sys-color-surface-variant: #3a3a3a;
-    --md-sys-color-on-surface-variant: #c0c0c0;
+    --md-sys-color-surface: #080808;
+    --md-sys-color-on-surface: #f5f5f5;
+    --md-sys-color-surface-variant: #292929;
+    --md-sys-color-on-surface-variant: #c8c8c8;
 
-    --md-sys-color-outline: #8a8a8a;
-    --md-sys-color-inverse-surface: #e0e0e0;
-    --md-sys-color-inverse-on-surface: #1a1a1a;
+    --md-sys-color-outline: rgba(255, 255, 255, 0.16);
+    --md-sys-color-inverse-surface: #f5f5f5;
+    --md-sys-color-inverse-on-surface: #101010;
 
-    --md-sys-color-error: #ffb4ab;
-    --md-sys-color-on-error: #690005;
+    --md-sys-color-error: #ff9aa6;
+    --md-sys-color-on-error: #3b0000;
 }
 
 /* Ambient Background */
@@ -470,18 +470,48 @@ nav {
     width: 100%;
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 .theme-toggle {
     background: none;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     color: var(--md-sys-color-on-surface);
     cursor: pointer;
     font-size: 1.2rem;
-    padding: 0.5rem;
-    transition: color 0.3s;
+    padding: 0.75rem;
+    transition: all 0.3s;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .theme-toggle:hover {
     color: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+    background: rgba(217, 122, 143, 0.08);
+}
+
+.dark nav {
+    background: rgba(10, 10, 10, 0.92);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .nav-links a {
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.dark .theme-toggle {
+    border-color: rgba(255, 255, 255, 0.14);
+    color: var(--md-sys-color-on-surface);
+}
+
+.dark .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 /* Hero Section */
