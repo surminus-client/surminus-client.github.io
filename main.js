@@ -1,4 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Fetch GitHub releases
+    async function loadGitHubReleases() {
+        try {
+            const response = await fetch('https://api.github.com/repos/surminus-client/Surminus/releases', {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+            
+            if (!response.ok) throw new Error('Failed to fetch releases');
+            
+            const releases = await response.json();
+            const container = document.getElementById('release-container');
+            
+            if (releases.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--md-sys-color-on-surface-variant);">No releases found.</p>';
+                return;
+            }
+            
+            container.innerHTML = releases.slice(0, 6).map((release, index) => {
+                const isLatest = index === 0;
+                const date = new Date(release.published_at).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+                
+                // Get first 200 characters of description
+                let description = release.body || 'No description provided';
+                if (description.length > 200) {
+                    description = description.substring(0, 200) + '...';
+                }
+                description = description.replace(/\n/g, ' ').trim();
+                
+                // Find the main download link (usually the first asset or repo link)
+                const downloadUrl = release.zipball_url;
+                const viewUrl = release.html_url;
+                
+                return `
+                    <div class="release-card">
+                        ${isLatest ? '<div class="release-tag latest">✨ Latest</div>' : '<div class="release-tag">Release</div>'}
+                        <div class="release-version">${release.tag_name}</div>
+                        <div class="release-date">${date}</div>
+                        <div class="release-description">${escapeHtml(description)}</div>
+                        <div class="release-download">
+                            <a href="${downloadUrl}" class="download-btn primary" title="Download this release">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                            <a href="${viewUrl}" class="download-btn secondary" target="_blank" title="View on GitHub">
+                                <i class="fab fa-github"></i> View
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+        } catch (error) {
+            console.error('Error loading releases:', error);
+            const container = document.getElementById('release-container');
+            container.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; color: var(--md-sys-color-on-surface-variant); padding: 40px;">
+                    <p>Unable to load releases. Please visit <a href="https://github.com/surminus-client/Surminus/releases" target="_blank" style="color: var(--md-sys-color-primary); text-decoration: underline;">GitHub releases</a> directly.</p>
+                </div>
+            `;
+        }
+    }
+    
+    // Utility function to escape HTML
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    // Load releases on page load
+    loadGitHubReleases();
     // Scroll reveals with intersection observer
     const observerOptions = {
         threshold: 0.15,
@@ -97,10 +173,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Navbar scroll effect
     const nav = document.querySelector('nav');
     const updateNavStyle = () => {
+        const isDarkMode = document.body.classList.contains('dark');
+        const baseBg = isDarkMode ? 'rgba(10, 10, 10, 0.92)' : 'rgba(250, 250, 250, 0.8)';
+        const scrolledBg = isDarkMode ? 'rgba(10, 10, 10, 0.95)' : 'rgba(250, 250, 250, 0.95)';
+        const borderColor = isDarkMode ? 'rgba(255, 255, 255, 0.08)' : 'rgba(217, 122, 143, 0.15)';
+        const borderColorBase = isDarkMode ? 'rgba(255, 255, 255, 0.08)' : 'rgba(217, 122, 143, 0.1)';
+
         if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
+            nav.style.height = '70px';
+            nav.style.backgroundColor = scrolledBg;
+            nav.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+            nav.style.borderBottomColor = borderColor;
         } else {
-            nav.classList.remove('scrolled');
+            nav.style.height = '80px';
+            nav.style.backgroundColor = baseBg;
+            nav.style.boxShadow = 'none';
+            nav.style.borderBottomColor = borderColorBase;
         }
     };
 
