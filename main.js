@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 return `
                     <div class="release-card">
-                        ${isLatest ? '<div class="release-tag latest">✨ Latest</div>' : '<div class="release-tag">Release</div>'}
+                        ${isLatest ? '<div class="release-tag latest"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-right: 4px;"><circle cx="12" cy="12" r="1"></circle><path d="M12 1v6m0 6v6"></path><path d="M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24"></path><path d="M1 12h6m6 0h6"></path><path d="M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path></svg> Latest</div>' : '<div class="release-tag">Release</div>'}
                         <div class="release-version">${release.tag_name}</div>
                         <div class="release-date">${date}</div>
                         <div class="release-description">${escapeHtml(description)}</div>
