@@ -626,6 +626,20 @@ nav {
     transform: scale(1.25) rotate(5deg);
 }
 
+.card-icon {
+    width: 40px;
+    height: 40px;
+    stroke: var(--md-sys-color-primary);
+    margin-bottom: 24px;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover .card-icon {
+    transform: scale(1.25) rotate(5deg);
+    filter: brightness(1.2);
+}
+
 .card h3,
 .card p {
     transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -641,7 +655,7 @@ nav {
 }
 
 .feature-side {
-    background: linear-gradient(135deg, rgba(50, 50, 60, 0.5) 0%, rgba(30, 30, 40, 0.4) 100%);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(255, 107, 157, 0.1) 100%);
     backdrop-filter: blur(20px);
     padding: 60px;
     border-radius: var(--md-sys-shape-extra-large);
@@ -655,7 +669,7 @@ nav {
 }
 
 .dark .feature-side {
-    background: linear-gradient(135deg, rgba(50, 50, 60, 0.8) 0%, rgba(30, 30, 40, 0.7) 100%);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(255, 107, 157, 0.15) 100%);
 }
 
 .feature-side::before {
@@ -907,6 +921,10 @@ nav {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+}
+
+.release-download .download-btn:only-child {
+    width: 100%;
 }
 
 .download-btn {
