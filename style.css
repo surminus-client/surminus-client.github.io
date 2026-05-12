@@ -786,40 +786,6 @@ nav {
     box-shadow: 0 0 20px rgba(217, 122, 143, 0.2);
 }
 
-/* Installation */
-.installation {
-    padding: 100px 0;
-    text-align: center;
-}
-
-.stepper {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    max-width: 800px;
-    margin: 64px auto 0;
-    text-align: left;
-}
-
-.step {
-    display: flex;
-    gap: 32px;
-    position: relative;
-}
-
-.step-number {
-    width: 48px;
-    height: 48px;
-    background: var(--primary-gradient);
-    color: var(--md-sys-color-on-primary);
-    border-radius: var(--md-sys-shape-full);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    flex-shrink: 0;
-}
-
 /* Download Panel */
 .download-panel {
     padding: 100px 0;
@@ -1014,6 +980,12 @@ footer {
 
 .footer-links a i {
     font-size: 1.1rem;
+}
+
+.footer-links a svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
 }
 
 .footer-links a:hover {
